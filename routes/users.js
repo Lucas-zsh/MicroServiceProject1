@@ -20,10 +20,10 @@ router.get('/users', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-    if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else if(req.body.username==null || req.body.password==null)
+    else */if(req.body.username==null || req.body.password==null)
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{
@@ -46,10 +46,10 @@ router.post('/login', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-    if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else if(req.body.username==null || req.body.password==null)
+    else */if(req.body.username==null || req.body.password==null)
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{
@@ -80,22 +80,22 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.get('/passages', function(req, res, next) {
-    if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else {
+    else {*/
 	   var db = req.db;
         db.collection('passages').find().toArray(function (err, items) {
     	   res.json(items);
 	   });
-    }
+    //}
 });
 
 router.get('/passages/:id', function(req, res, next) {
-    if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else{
+    else{*/
 	   var db = req.db;
         db.collection('passages').find({id:req.params.id}).toArray(function (err, result) {
     	   if(err)
@@ -110,14 +110,15 @@ router.get('/passages/:id', function(req, res, next) {
     	       	res.json(result[0]);
     	   }
 	   });
-    }
+    //}
 });
 
 router.post('/passages', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.param.subscriptionkey != rootkey){
+        console.log(req.param.subscriptionkey);
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
-    }
-    else if(req.body.id==null || req.body.passage==null)
+    }*/
+    if(req.body.id==null || req.body.passage==null)
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{ 
@@ -137,10 +138,10 @@ router.post('/passages', function(req, res, next) {
 });
 
 router.put('/passages/:id', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
-    }
-    else if(req.params.id==null || req.body.passage==null)
+    }*/
+    if(req.params.id==null || req.body.passage==null)
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{ 
@@ -160,10 +161,10 @@ router.put('/passages/:id', function(req, res, next) {
 });
 
 router.delete('/passages/:id', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else{
+    else{*/
 	   var db = req.db;
         db.collection('passages').remove({id:req.params.id}, function (err, result) {
     	   if(err)
@@ -175,28 +176,28 @@ router.delete('/passages/:id', function(req, res, next) {
   			   res.send(JSON.stringify({ RET:200,status:"success"}));
   		    }
      });
-    }
+    //}
   	
 });
 
 
 router.get('/profiles', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else{
+    else{*/
 	   var db = req.db;
          db.collection('profiles').find().toArray(function (err, items) {
     	   res.json(items);
 	   });
-     }
+    // }
 });
 
 router.get('/profiles/:username', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else{
+    else{*/
 	   var db = req.db;
         db.collection('profiles').find({username:req.params.username}).toArray(function (err, result) {
     	   if(err)
@@ -211,14 +212,14 @@ router.get('/profiles/:username', function(req, res, next) {
     	       	res.json(result[0]);
     	   }
 	   });
-    }
+   // }
 });
 
 router.post('/profiles', function(req, res, next) {
-    if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else if(req.body.username==null || req.body.age==null || req.body.weight==null || req.body.height==null || req.body.queries==null )
+    else */if(req.body.username==null || req.body.age==null || req.body.weight==null || req.body.height==null || req.body.queries==null )
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{ 
@@ -238,10 +239,10 @@ router.post('/profiles', function(req, res, next) {
 });
 
 router.put('/profiles/:username', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else if(req.params.username==null || req.body.age==null || req.body.weight==null || req.body.height==null || req.body.queries==null )
+    else */if(req.params.username==null || req.body.age==null || req.body.weight==null || req.body.height==null || req.body.queries==null )
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{ 
@@ -261,10 +262,10 @@ router.put('/profiles/:username', function(req, res, next) {
 });
 
 router.delete('/profiles/:username', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else {
+    else {*/
 	   var db = req.db;
         db.collection('profiles').remove({id:req.params.username}, function (err, result) {
     	   if(err)
@@ -276,28 +277,28 @@ router.delete('/profiles/:username', function(req, res, next) {
   			   res.send(JSON.stringify({ RET:200,status:"success"}));
   	 	    }
         });
-    }
+    //}
   	
 });
 
 
 router.get('/feedback', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else{
+    else{*/
        var db = req.db;
          db.collection('feedback').find().toArray(function (err, items) {
            res.json(items);
        });
-     }
+     //}
 });
 
 router.get('/feedback/:username', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else{
+    else{*/
        var db = req.db;
         db.collection('feedback').find({username:req.params.username}).toArray(function (err, result) {
            if(err)
@@ -312,14 +313,14 @@ router.get('/feedback/:username', function(req, res, next) {
                 res.json(result[0]);
            }
        });
-    }
+   // }
 });
 
 router.post('/feedback', function(req, res, next) {
-    if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != userkey && req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else if(req.body.username==null || req.body.content==null)
+    else */if(req.body.username==null || req.body.content==null)
     {
         res.send(JSON.stringify({ RET:402,status:"wrong JSON format" }));
     }else{ 
@@ -339,10 +340,10 @@ router.post('/feedback', function(req, res, next) {
 });
 
 router.delete('/feedback/:username', function(req, res, next) {
-    if(req.query.subscriptionkey != rootkey){
+    /*if(req.query.subscriptionkey != rootkey){
         res.send(JSON.stringify({ RET:404,status:"permission denied" }));
     }
-    else {
+    else {*/
        var db = req.db;
         db.collection('feedback').remove({id:req.params.username}, function (err, result) {
            if(err)
@@ -354,7 +355,7 @@ router.delete('/feedback/:username', function(req, res, next) {
                res.send(JSON.stringify({ RET:200,status:"success"}));
             }
         });
-    }
+    //}
     
 });
 
