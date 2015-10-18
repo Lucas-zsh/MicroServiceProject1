@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //import database
 app.use(function(req,res,next){
     req.db = db;
+    console.log("here");
     next();
 });
 
